@@ -1,0 +1,30 @@
+version: '2'
+
+tasks:
+
+  install:
+    cmds:
+      - nimble install
+
+  build:
+    cmds:
+      - nim c -o:./ribboncd{{exeExt}} src/ribboncd.nim 
+    sources:
+      - ./src/*.nim
+      - ./src/**/.nim
+    generates:
+      - ribboncd{{exeExt}}
+
+  run:
+    cmds:
+      - nim c -o:./ribboncd{{exeExt}} -r src/ribboncd.nim
+
+  release:
+    cmds:
+      - nimble build
+    silent: true
+
+  clean:
+    cmds:
+      - rm ribboncd{{exeExt}}
+      - rm *.dll
