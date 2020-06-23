@@ -13,7 +13,8 @@ type GithubConfig = ref object
   
 type DeploymentConfig = ref object
   target*: string
-  shell_commands*: seq[string]
+  cd*: string
+  shell_commands*: string
 
 type RcdConfig = ref object
   service*: ServiceConfig
@@ -31,4 +32,4 @@ let config = load_config(config_file)
 echo(config.service.path)
 echo(config.github.webhook_secret)
 echo(config.deployments[0].target)
-echo(config.deployments[0].shell_commands[0])
+echo(config.deployments[0].shell_commands)

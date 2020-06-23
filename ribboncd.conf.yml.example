@@ -1,0 +1,21 @@
+service:
+  path: /
+  port: 8000
+
+github:
+  webhook_secret: my-webhook-secret
+
+deployments:
+  -
+    target: test-app-1
+    cd: /usr/bin/test-apps
+    shell_commands: |
+      echo installing test-app-1
+      echo done
+  -
+    target: test-app-2
+    cd: /usr/bin/test-apps
+    shell_commands: |
+      echo installing test-app-2
+      echo done
+
