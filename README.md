@@ -7,17 +7,22 @@ Simple continuous deployment through github webhooks. `linux` `windows` `nim`
 
 ## Build, test & run
 ```sh
+# create configuration file
+cp ribboncd.conf.yml.example ribboncd.conf.yml
+# edit me
+
 # install nim dependencies
 task install
 
-# build
+# build executable
 task build
 
-# run
+# run executable
 task run
 
 # bundle release
 task release
+# install me
 
 # remove generated files
 task clean
