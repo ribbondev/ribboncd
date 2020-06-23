@@ -1,5 +1,5 @@
 ## RibbonCD
-Simple continuous deployment through github webhooks. `linux` `windows` `nim`
+Simple continuous deployment through github webhooks. `linux` `windows` `nim` `github`
 
 ## Build requirements
 - Nim compiler in path: http://nim-lang.org/
