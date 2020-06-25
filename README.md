@@ -17,6 +17,9 @@ task install
 # build executable
 task build
 
+# run the unit tests
+task test
+
 # run executable
 task run
 
