@@ -15,6 +15,10 @@ tasks:
     generates:
       - ribboncd{{exeExt}}
 
+  test:
+    cmds:
+      - nimble test
+
   run:
     cmds:
       - nim c -o:./ribboncd{{exeExt}} -r src/ribboncd.nim

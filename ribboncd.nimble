@@ -8,7 +8,7 @@ srcDir        = "src"
 bin           = @["ribboncd"]
 
 
-
 # Dependencies
 
-requires "nim >= 1.2.0"
+requires "nim >= 1.2.2"
+requires "yaml >= 0.13.1"

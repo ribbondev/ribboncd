@@ -1,35 +1,19 @@
 
-import yaml.serialization as yamls
-import streams
+import asynchttpserver, asyncdispatch
+import config
 
 const config_file = "ribboncd.conf.yml"
 
-type ServiceConfig = ref object
-  path*: string
-  port*: int
+let cfg = config.load_config(config_file)
+echo(cfg.service.path)
+echo(cfg.github.webhook_secret)
+echo(cfg.deployments[0].target)
+echo(cfg.deployments[0].shell_commands)
 
-type GithubConfig = ref object
-  webhook_secret*: string
-  
-type DeploymentConfig = ref object
-  target*: string
-  cd*: string
-  shell_commands*: string
+let server = newAsyncHttpServer()
 
-type RcdConfig = ref object
-  service*: ServiceConfig
-  github*: GithubConfig
-  deployments*: seq[DeploymentConfig]
-
-proc load_config*(file_name: string): RcdConfig =
-  var config: RcdConfig
-  let stream = newFileStream(file_name)
-  yamls.load(stream, config)
-  stream.close()
-  result = config
-
-let config = load_config(config_file)
-echo(config.service.path)
-echo(config.github.webhook_secret)
-echo(config.deployments[0].target)
-echo(config.deployments[0].shell_commands)
+proc handle_request(req: Request) {.async.} =
+  await req.respond(Http200, "Hello, world!")
+ 
+waitFor server.serve(Port(cfg.service.port), handle_request)
+ 
