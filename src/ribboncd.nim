@@ -1,6 +1,8 @@
 
 import asynchttpserver, asyncdispatch
+import strformat
 import config
+import rosencrantz
 
 const config_file = "ribboncd.conf.yml"
 
@@ -12,8 +14,12 @@ echo(cfg.deployments[0].shell_commands)
 
 let server = newAsyncHttpServer()
 
-proc handle_request(req: Request) {.async.} =
-  await req.respond(Http200, "Hello, world!")
- 
-waitFor server.serve(Port(cfg.service.port), handle_request)
- 
+let handler = get[
+  path(cfg.service.path)[
+    ok("Hello, world!")
+  ]
+]
+
+echo("[ribbon.cd] My most dear lady!")
+echo(fmt"[ribbon.cd] Starting service on port {cfg.service.port}")
+waitFor server.serve(Port(cfg.service.port), handler)

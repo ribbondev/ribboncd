@@ -7,8 +7,8 @@ license       = "MIT"
 srcDir        = "src"
 bin           = @["ribboncd"]
 
-
 # Dependencies
 
 requires "nim >= 1.2.2"
 requires "yaml >= 0.13.1"
+requires "rosencrantz >= 0.4.3"
