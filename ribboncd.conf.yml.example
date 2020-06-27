@@ -1,11 +1,24 @@
+
+# CONFIG QUICKSTART
+# cp ribboncd.conf.yml.example ribboncd.conf.yml
+
 service:
+  # expect github webhook to post to server:port/path
   path: /
   port: 8000
+  log: true
 
 github:
+  # used to validate against incoming requests to proove source is github
+  # this needs to be setup in your github webhooks configuration
+  # prefix secret value with $ to evaluate from an environment variable
   webhook_secret: my-webhook-secret
 
 deployments:
+  # each deployment target requires:
+  #   target: name of the github repository being released
+  #   cd: directory to run the deployment from
+  #   shell_commands: deployment actions
   -
     target: test-app-1
     cd: /usr/bin/test-apps
@@ -18,4 +31,3 @@ deployments:
     shell_commands: |
       echo installing test-app-2
       echo done
-

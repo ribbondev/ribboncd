@@ -1,19 +1,20 @@
 import yaml/serialization as yamls
 import streams
 
-type ServiceConfig = ref object
+type ServiceConfig* = ref object
   path*: string
   port*: int
+  log*: bool
 
-type GithubConfig = ref object
+type GithubConfig* = ref object
   webhook_secret*: string
   
-type DeploymentConfig = ref object
+type DeploymentConfig* = ref object
   target*: string
   cd*: string
   shell_commands*: string
 
-type RcdConfig = ref object
+type RcdConfig* = ref object
   service*: ServiceConfig
   github*: GithubConfig
   deployments*: seq[DeploymentConfig]
