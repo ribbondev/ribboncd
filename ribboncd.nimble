@@ -12,3 +12,4 @@ bin           = @["ribboncd"]
 requires "nim >= 1.2.2"
 requires "yaml >= 0.13.1"
 requires "rosencrantz >= 0.4.3"
+requires "nimcrypto >= 0.4.11"

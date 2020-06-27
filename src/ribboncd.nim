@@ -2,6 +2,7 @@
 import asynchttpserver, asyncdispatch
 import strformat
 import config
+import validate_secret
 import rosencrantz
 
 const config_file = "ribboncd.conf.yml"
