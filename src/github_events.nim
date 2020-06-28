@@ -27,11 +27,11 @@ type GithubSender* = ref object
 
 type GithubRelease* = ref object
   url*: string
-  id*: int,
-  tag_name*: string,
+  id*: int
+  tag_name*: string
   target_commitish*: string
   draft*: bool
-  prerelease* bool
+  prerelease*: bool
   created_at*: string
   published_at*: string
 
@@ -48,3 +48,7 @@ type GithubReleaseMessage* = ref object
   release*: GithubRelease
   repository*: GithubRepository
   sender*: GithubSender
+
+type GithubEvents* = enum
+    release = "release"
+    ping = "ping"

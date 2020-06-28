@@ -3,27 +3,20 @@ import asynchttpserver
 import asyncdispatch
 import strformat
 import config
-#import github_validator
-#import github_events
+import payload_handler
 import logger
 import rosencrantz
 
-const config_file = "ribboncd.conf.yml"
-
-let cfg = config.load_config(config_file)
-let log = logger.newRLogger(cfg)
-
+let cfg = config.get_config()
+let log = logger.get_logger()
 let server = newAsyncHttpServer()
 
-# log X-GitHub-Delivery per req
-# support only X-Github-Event of release and ping
-# validate X-Hub-Signature hmac
 let handler = post[
   path(cfg.service.path)[
-    ok("Hello, world!")
-    #jsonBody(proc(m: GithubWebhookMessage): auto =
-    #  ok("hello world")
-    #)
+    accept("application/json")[
+      makeHandler do:
+        return await handle_gh_payload(req, ctx)
+    ]
   ]
 ]
 

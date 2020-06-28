@@ -9,7 +9,7 @@ type RLogger* = ref object
   console*: ConsoleLogger
   file*: RollingFileLogger
 
-proc newRLogger*(config: RcdConfig): RLogger =
+proc newRLogger(config: RcdConfig): RLogger =
   let fmt = "[ribbon.cd] $time : $levelName - "
   let console_logger = newConsoleLogger(fmtStr=fmt)
   var file_logger: RollingFileLogger = nil
@@ -43,3 +43,11 @@ proc fatal*(logger: RLogger, msg: string) =
 
 proc debug*(logger: RLogger, msg: string) =
   write_ex(logger, lvlDebug, msg)
+
+var logger: RLogger = nil
+
+proc get_logger*(): RLogger =
+  if logger != nil: return logger
+  let new_logger = newRLogger(config.get_config())
+  logger = new_logger
+  return logger
