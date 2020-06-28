@@ -1,17 +1,16 @@
 
-import asynchttpserver, asyncdispatch
+import asynchttpserver
+import asyncdispatch
 import strformat
 import config
-import validate_secret
+#import github_validator
+import logger
 import rosencrantz
 
 const config_file = "ribboncd.conf.yml"
 
 let cfg = config.load_config(config_file)
-echo(cfg.service.path)
-echo(cfg.github.webhook_secret)
-echo(cfg.deployments[0].target)
-echo(cfg.deployments[0].shell_commands)
+let log = logger.newRLogger(cfg)
 
 let server = newAsyncHttpServer()
 
@@ -22,5 +21,5 @@ let handler = get[
 ]
 
 echo("[ribbon.cd] My most dear lady!")
-echo(fmt"[ribbon.cd] Starting service on port {cfg.service.port}")
+log.write(fmt"Starting service on port {cfg.service.port}")
 waitFor server.serve(Port(cfg.service.port), handler)
