@@ -4,6 +4,7 @@ import asyncdispatch
 import strformat
 import config
 #import github_validator
+#import github_events
 import logger
 import rosencrantz
 
@@ -14,9 +15,15 @@ let log = logger.newRLogger(cfg)
 
 let server = newAsyncHttpServer()
 
-let handler = get[
+# log X-GitHub-Delivery per req
+# support only X-Github-Event of release and ping
+# validate X-Hub-Signature hmac
+let handler = post[
   path(cfg.service.path)[
     ok("Hello, world!")
+    #jsonBody(proc(m: GithubWebhookMessage): auto =
+    #  ok("hello world")
+    #)
   ]
 ]
 
