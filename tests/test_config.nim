@@ -1,10 +1,10 @@
 import unittest
 import strutils
-import config
+import util/config
 
 suite "config.load_config":
 
-  test "loads ribboncd.conf.yml.example":
+  test "loads ribboncd.example.conf.yml":
     const config_file = "ribboncd.conf.yml.example"
     let cfg = config.load_config(config_file)
         

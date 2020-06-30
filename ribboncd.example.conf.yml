@@ -6,6 +6,7 @@ service:
   # expect github webhook to post to server:port/path
   path: /
   port: 8000
+  # write log files of all activity (ribboncd.log)
   log: true
 
 github:
