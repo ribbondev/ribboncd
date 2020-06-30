@@ -13,7 +13,7 @@ to webhooks. It's use-case is not specifically tied to deploying code*
 - Nim compiler in path: http://nim-lang.org/
 - Taskfile task runner in path: https://taskfile.dev/
 
-## Quick-start
+## Quickstart
 ```sh
 # install nim dependencies
 task install
