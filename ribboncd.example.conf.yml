@@ -1,6 +1,6 @@
 
 # CONFIG QUICKSTART
-# cp ribboncd.conf.yml.example ribboncd.conf.yml
+# cp ribboncd.example.conf.yml ribboncd.conf.yml
 
 service:
   # expect github webhook to post to server:port/path

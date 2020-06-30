@@ -13,7 +13,7 @@ Simple continuous deployment server for github webhooks. `linux` `windows` `nim`
 ## Build, test & run
 ```sh
 # create configuration file
-cp ribboncd.conf.yml.example ribboncd.conf.yml
+cp ribboncd.example.conf.yml ribboncd.conf.yml
 # edit me
 
 # install nim dependencies
