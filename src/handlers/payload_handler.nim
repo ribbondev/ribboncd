@@ -5,10 +5,10 @@ import strformat
 #import config
 #import github_validator
 #import github_events
-import logger
 import rosencrantz
 import json
 import tables
+import ../util/logger
 
 #let cfg = config.get_config()
 let log = logger.get_logger()

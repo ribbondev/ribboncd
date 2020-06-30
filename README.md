@@ -1,4 +1,4 @@
-## RibbonCD
+## ribbon.cd
 Simple continuous deployment through github webhooks. `linux` `windows` `nim` `github`
 
 ## Build requirements
