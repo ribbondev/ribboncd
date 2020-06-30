@@ -1,5 +1,5 @@
 ## :ribbon: / ribbon.cd
-Simple continuous deployment server for github webhooks. `linux` `windows` `nim` `github`
+An easy-to-use, minimalist continuous deployment server for github webhooks. `linux` `windows` `nim` `github`
 
 ## Features
 - Trigger deployment jobs from github release webhooks
