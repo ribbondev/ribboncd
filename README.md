@@ -1,4 +1,4 @@
-## ribbon.cd
+## [ribbon.cd]
 Simple continuous deployment server for github webhooks. `linux` `windows` `nim` `github`
 
 ## Features
