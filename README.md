@@ -17,6 +17,7 @@ to webhooks. It's use-case is not specifically tied to deploying code*
 ```sh
 # clone to target deployment server
 git clone https://github.com/ribbondev/ribboncd
+cd ribboncd
 
 # install nim dependencies
 task install
