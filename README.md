@@ -7,18 +7,14 @@ Simple continuous deployment server for github webhooks. `linux` `windows` `nim`
 - Configure repository targets and associated deployment jobs using yaml
 
 *Note: ribbon.cd simply executes arbitrary shell commands in response
-to webhooks. It's use-case is not only tied to deploying code as a result* 
+to webhooks. It's use-case is not specifically tied to deploying code* 
 
 ## Build requirements
 - Nim compiler in path: http://nim-lang.org/
 - Taskfile task runner in path: https://taskfile.dev/
 
-## Build, test & run
+## Quick-start
 ```sh
-# create configuration file
-cp ribboncd.example.conf.yml ribboncd.conf.yml
-# edit me
-
 # install nim dependencies
 task install
 
@@ -27,6 +23,10 @@ task build
 
 # run the unit tests
 task test
+
+# create configuration file
+cp ribboncd.example.conf.yml ribboncd.conf.yml
+# edit me
 
 # run executable
 task run
@@ -40,4 +40,4 @@ task clean
 ```
 
 ## Configuration
-See [ribboncd.example.conf.yml](./ribboncd.example.conf.yml) for an example
+See [ribboncd.example.conf.yml](./ribboncd.example.conf.yml) for a documented example
