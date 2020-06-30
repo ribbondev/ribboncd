@@ -2,10 +2,11 @@
 import asynchttpserver
 import asyncdispatch
 import strformat
+import rosencrantz
+
 import util/config
 import handlers/payload_handler
 import util/logger
-import rosencrantz
 
 let cfg = config.get_config()
 let log = logger.get_logger()

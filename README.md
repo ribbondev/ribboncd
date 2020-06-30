@@ -1,5 +1,10 @@
 ## ribbon.cd
-Simple continuous deployment through github webhooks. `linux` `windows` `nim` `github`
+Simple continuous deployment server for github webhooks. `linux` `windows` `nim` `github`
+
+## Features
+- Trigger deployment jobs from github release webhook
+- Perform arbitrary deployment jobs via shell commands
+- Configure repository targets and associated deployment jobs using yaml
 
 ## Build requirements
 - Nim compiler in path: http://nim-lang.org/

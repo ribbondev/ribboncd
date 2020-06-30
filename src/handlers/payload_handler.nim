@@ -2,12 +2,13 @@
 import asynchttpserver
 import asyncdispatch
 import strformat
-#import config
-#import github_validator
-#import github_events
-import rosencrantz
 import json
 import tables
+import rosencrantz
+
+#import ../util/config
+#import ../github/github_validator
+#import ../github/github_events
 import ../util/logger
 
 #let cfg = config.get_config()
