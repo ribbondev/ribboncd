@@ -8,6 +8,7 @@ import strformat
 import logger
 import rosencrantz
 import json
+import tables
 
 #let cfg = config.get_config()
 let log = logger.get_logger()
@@ -21,12 +22,12 @@ const http_response_invalid_headers = "invalid headers"
 proc json_respond(req: ref Request, code: HttpCode, msg: string) {.async.} =
   let msg = %* {"status": msg}
   let headers = newHttpHeaders([("Content-Type", "application/json")])
-  req[].respond(code, $msg, headers)
+  await req[].respond(code, $msg, headers)
 
-proc has_expected_headers(headers: TableRef[string, seq[string]]): bool =
-  if not headers.hasKey(gh_event_header): return false
-  if not headers.hasKey(gh_delivery_header): return false
-  if not headers.hasKey(gh_hmac_sig_header): return false
+proc has_expected_headers(headers: HttpHeaders): bool =
+  if not headers.table.hasKey(gh_event_header): return false
+  if not headers.table.hasKey(gh_delivery_header): return false
+  if not headers.table.hasKey(gh_hmac_sig_header): return false
   return true
 
 proc handle_gh_payload*(req: ref Request, ctx: Context): Future[Context] {.async.} =
