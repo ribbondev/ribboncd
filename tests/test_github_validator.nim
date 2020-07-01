@@ -1,5 +1,5 @@
 import unittest
-import github_validator
+import ribboncd/github/github_validator
 
 suite "github_validator.constant_cmp":
 

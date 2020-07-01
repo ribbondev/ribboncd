@@ -4,9 +4,9 @@ import asyncdispatch
 import strformat
 import rosencrantz
 
-import util/config
-import handlers/payload_handler
-import util/logger
+import ribboncd/util/config
+import ribboncd/handlers/payload_handler
+import ribboncd/util/logger
 
 let cfg = config.get_config()
 let log = logger.get_logger()

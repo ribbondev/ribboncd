@@ -22,13 +22,19 @@ deployments:
   #   shell_commands: deployment actions
   -
     target: test-app-1
-    cd: /usr/bin/test-apps
+    cd: /usr/bin/test-apps/1
     shell_commands: |
       echo installing test-app-1
+      pkill test-app-1
+      git pull
+      ./test-app-1
       echo done
   -
     target: test-app-2
-    cd: /usr/bin/test-apps
+    cd: /usr/bin/test-apps/2
     shell_commands: |
       echo installing test-app-2
+      pkill test-app-2
+      git pull
+      ./test-app-2
       echo done
