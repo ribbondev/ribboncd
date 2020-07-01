@@ -4,5 +4,6 @@ htmldocs/
 *.dll
 *.exe
 ribboncd
+!ribboncd/
 ribboncd.conf.yml
 ribboncd.log
