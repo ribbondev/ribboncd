@@ -31,7 +31,7 @@ proc has_expected_headers(headers: HttpHeaders): bool =
   if not headers.table.hasKey(gh_hmac_sig_header): return false
   return true
 
-proc handle_gh_payload*(req: ref Request, ctx: Context): Future[Context] {.async.} =
+proc handle_gh_payload*(req: ref Request, ctx: Context) {.async.} =
   # ensure X-GitHub-Event, X-GitHub-Delivery and X-Hub-Signature are set
   let host = req[].hostname
   let headers = req[].headers
@@ -45,5 +45,4 @@ proc handle_gh_payload*(req: ref Request, ctx: Context): Future[Context] {.async
   # if X-GitHubEvent is ping, handle GithubPingMessage
 
   # else Log unhandled event type
-  return ctx
 

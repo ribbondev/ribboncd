@@ -5,5 +5,7 @@ htmldocs/
 *.exe
 ribboncd
 !ribboncd/
+tests/*
+!tests/*.nim
 ribboncd.conf.yml
 ribboncd.log

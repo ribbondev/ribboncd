@@ -25,6 +25,7 @@ proc newRLogger(config: RcdConfig): RLogger =
     file: file_logger)
 
 template write_ex(logger: RLogger, level: Level, msg: string) =
+  if defined(unit_test): return
   logger.console.log(level, msg)
   if logger.log_to_file and logger.file != nil:
     logger.file.log(level, msg)
