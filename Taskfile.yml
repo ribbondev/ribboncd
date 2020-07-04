@@ -8,7 +8,7 @@ tasks:
 
   build:
     cmds:
-      - nim c -o:./ribboncd{{exeExt}} -d:silence_rosencrantz src/ribboncd.nim 
+      - nim c -o:./ribboncd{{exeExt}} src/ribboncd.nim 
     sources:
       - ./src/*.nim
       - ./src/**/.nim
@@ -21,7 +21,7 @@ tasks:
 
   run:
     cmds:
-      - nim c -o:./ribboncd{{exeExt}} -d:silence_rosencrantz -r src/ribboncd.nim
+      - nim c -o:./ribboncd{{exeExt}} -r src/ribboncd.nim
 
   release:
     cmds:
