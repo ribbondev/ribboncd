@@ -1,10 +1,11 @@
 import logging
 import config
+import options
 
 const log_file = "ribboncd.log"
 const max_lines = 5000
 
-type RLogger* = ref object
+type RLogger* = object
   log_to_file*: bool
   console*: ConsoleLogger
   file*: RollingFileLogger
@@ -45,10 +46,10 @@ proc fatal*(logger: RLogger, msg: string) =
 proc debug*(logger: RLogger, msg: string) =
   write_ex(logger, lvlDebug, msg)
 
-var logger: RLogger = nil
+var logger: Option[RLogger] = none(RLogger)
 
 proc get_logger*(): RLogger =
-  if logger != nil: return logger
+  if logger.isSome(): return logger.get()
   let new_logger = newRLogger(config.get_config())
-  logger = new_logger
-  return logger
+  logger = some(new_logger)
+  return logger.get()
