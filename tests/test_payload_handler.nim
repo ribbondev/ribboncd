@@ -6,8 +6,8 @@ import unittest
 import httpclient
 import json
 import strformat
-import ribboncd/util/config
-import ribboncd/handlers/payload_handler
+import util/config
+import handlers/payload_handler
 
 const testserver_domain = "localhost"
 const testserver_port = 8000

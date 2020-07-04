@@ -1,6 +1,6 @@
 import unittest
 import strutils
-import ribboncd/util/config
+import util/config
 
 suite "config.load_config":
 
