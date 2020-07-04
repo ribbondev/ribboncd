@@ -23,6 +23,7 @@ suite "github_validator.constant_cmp":
     check(constant_cmp("abc def 1234", "abc def 123") == false)
 
 suite "github_validator.validate_secret":
+  
   test "returns true when github hash is hmac of secret and body":
     let secret = "secret123"
     let body = "{ x: 1, y: 1 }"

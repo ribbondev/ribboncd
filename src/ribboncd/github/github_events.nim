@@ -35,7 +35,6 @@ type GithubRelease* = ref object
   created_at*: string
   published_at*: string
 
-
 type GithubPingMessage* = ref object
   zen*: string
   hook_id*: int

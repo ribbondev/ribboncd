@@ -16,7 +16,7 @@ let handler = post[
   path(cfg.service.path)[
     accept("application/json")[
       makeHandler do:
-        return await handle_gh_payload(req, ctx)
+        await handle_gh_payload(req, ctx)
     ]
   ]
 ]

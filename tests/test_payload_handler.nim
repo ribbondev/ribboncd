@@ -24,7 +24,6 @@ proc start_testserver(): Future[void] =
   ]
   return server.serve(Port(testserver_port), handler)
   
-
 suite "payload_handler.handle_gh_payload":
   
   test "request does not include expected errors, returns Http400":
