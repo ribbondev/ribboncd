@@ -4,12 +4,12 @@ import asyncdispatch
 import strformat
 import json
 
-#import ../util/config
-#import ../github/github_validator
+import ../util/config
+import ../github/github_validator
 #import ../github/github_events
 import ../util/logger
 
-#let cfg = config.get_config()
+let cfg = config.get_config()
 let log = logger.get_logger()
 
 const gh_event_header = "X-GitHub-Event"
@@ -18,6 +18,7 @@ const gh_hmac_sig_header = "X-Hub-Signature"
 
 const http_response_invalid_headers = "invalid headers"
 const http_response_handled = "handled"
+const http_response_forbidden = "unable to authenticate secret"
 
 proc json_respond(req: Request, code: HttpCode, msg: string) {.async.} =
   let msg = %* {"status": msg}
@@ -44,6 +45,10 @@ proc handle_gh_payload*(req: Request) {.async.} =
   let sig = headers[gh_hmac_sig_header]
   log.write(fmt"Received payload: DeliveryId={delivery}, Event={event}, Signature={sig}")
   # verify X-Hub-Signature using github_validator
+  if not validate_secret(cfg.github.webhook_secret, req.body, sig):
+    log.warn(fmt"Request with invalid signature: {sig}")
+    await json_respond(req, Http403, http_response_forbidden)
+    return
   # if X-GitHubEvent is release, handle GithubReleaseMessage
 
   # if X-GitHubEvent is ping, handle GithubPingMessage

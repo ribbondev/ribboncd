@@ -18,11 +18,9 @@ proc start_testserver(): Future[void] =
   let test_handler = proc(req: Request) {.async, gcsafe, closure.} =
     let `method` = req.req_method
     let path = req.url.path
-  
     var contentType: string = ""
     if req.headers.hasKey("Content-Type"):
       contentType = req.headers["Content-Type"]
-
     if `method` == HttpPost and 
       path == cfg.service.path and 
       contentType == "application/json":
@@ -53,7 +51,7 @@ suite "payload_handler.handle_gh_payload":
     # assert
     check(response.read().status == $Http400)
 
-  test "request includes correct headers, returns Http200":
+  test "valid request with incorrect signature, returns Http403":
     # start server
     discard start_testserver()
     # make reqs
@@ -61,7 +59,7 @@ suite "payload_handler.handle_gh_payload":
       "Content-Type": "application/json",
       "X-GitHub-Event": "release",
       "X-GitHub-Delivery": "nya",
-      "X-Hub-Signature": "44DDFF123E0"
+      "X-Hub-Signature": "INVALID"
     })
     let client = newAsyncHttpClient(headers=headers)
     let url = fmt"http://{testserver_domain}:{testserver_port}/"
@@ -76,4 +74,4 @@ suite "payload_handler.handle_gh_payload":
       if response.finished:
         break
     # assert
-    check(response.read().status == $Http200)
+    check(response.read().status == $Http403)

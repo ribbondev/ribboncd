@@ -14,18 +14,16 @@ let server = newAsyncHttpServer()
 proc core_handler(req: Request) {.async, gcsafe.} =
   let `method` = req.req_method
   let path = req.url.path
-  
   var contentType: string = ""
   if req.headers.hasKey("Content-Type"):
     contentType = req.headers["Content-Type"]
-
   if `method` == HttpPost and 
     path == cfg.service.path and 
     contentType == "application/json":
     await handle_gh_payload(req)
   else:
-    await req.respond(Http404, "Oops!")
-
+    log.write(fmt"Invalid request at: {req.url.path}")
+    await req.respond(Http404, "Oops! Something went wrong!")
 
 echo("[ribbon.cd] My most dear lady!")
 log.write(fmt"Starting service on port {cfg.service.port}")
