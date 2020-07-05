@@ -31,7 +31,7 @@ proc start_testserver(): Future[void] =
   
 suite "payload_handler.handle_gh_payload":
   
-  test "request does not include expected errors, returns Http400":
+  test "request does not include expected headers, returns Http400":
     # start server
     discard start_testserver()
     # make reqs
