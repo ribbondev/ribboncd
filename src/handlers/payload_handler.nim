@@ -9,9 +9,6 @@ import ../github/github_validator
 #import ../github/github_events
 import ../util/logger
 
-let cfg = config.get_config()
-let log = logger.get_logger()
-
 const gh_event_header = "X-GitHub-Event"
 const gh_delivery_header = "X-GitHub-Delivery"
 const gh_hmac_sig_header = "X-Hub-Signature"
@@ -32,6 +29,8 @@ proc has_expected_headers(headers: HttpHeaders): bool =
   return true
 
 proc handle_gh_payload*(req: Request) {.async.} =
+  let cfg = get_config()
+  let log = get_logger()
   # ensure X-GitHub-Event, X-GitHub-Delivery and X-Hub-Signature are set
   let host = req.hostname
   let headers = req.headers
@@ -43,7 +42,8 @@ proc handle_gh_payload*(req: Request) {.async.} =
   let event = headers[gh_event_header]
   let delivery = headers[gh_delivery_header]
   let sig = headers[gh_hmac_sig_header]
-  log.write(fmt"Received payload: DeliveryId={delivery}, Event={event}, Signature={sig}")
+  log.write(fmt"Received payload: {delivery}")
+  log.write(fmt"Event: {event}")
   # verify X-Hub-Signature using github_validator
   if not validate_secret(cfg.github.webhook_secret, req.body, sig):
     log.warn(fmt"Request with invalid signature: {sig}")
@@ -54,6 +54,7 @@ proc handle_gh_payload*(req: Request) {.async.} =
   # if X-GitHubEvent is ping, handle GithubPingMessage
 
   # return ok
+  log.write("Request handled successfully")
   await json_respond(req, Http200, http_response_handled)
   # else Log unhandled event type
 

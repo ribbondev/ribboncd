@@ -11,7 +11,7 @@ type RLogger* = object
   file*: RollingFileLogger
 
 proc newRLogger(config: RcdConfig): RLogger =
-  let fmt = "[ribbon.cd] $time : $levelName - "
+  let fmt = "$levelName - $time: "
   let console_logger = newConsoleLogger(fmtStr=fmt)
   var file_logger: RollingFileLogger = nil
   if config.service.log == true:
@@ -46,10 +46,10 @@ proc fatal*(logger: RLogger, msg: string) =
 proc debug*(logger: RLogger, msg: string) =
   write_ex(logger, lvlDebug, msg)
 
-var logger: Option[RLogger] = none(RLogger)
+var log {.global, threadvar.}: Option[RLogger]
 
 proc get_logger*(): RLogger =
-  if logger.isSome(): return logger.get()
-  let new_logger = newRLogger(config.get_config())
-  logger = some(new_logger)
-  return logger.get()
+  if log.isSome(): return log.get()
+  let cfg = get_config()
+  log = some(newRLogger(cfg))
+  return log.get()

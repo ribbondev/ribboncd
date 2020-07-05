@@ -27,5 +27,5 @@ suite "github_validator.validate_secret":
   test "returns true when github hash is hmac of secret and body":
     let secret = "secret123"
     let body = "{ x: 1, y: 1 }"
-    let github_sig = "sha1=1C30FB84424FD7B175E64EDD94148CD9E2D58B97"
+    let github_sig = "sha1=1c30fb84424fd7b175e64edd94148cd9e2d58b97"
     check(validate_secret(secret, body, github_sig) == true)

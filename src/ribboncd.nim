@@ -7,9 +7,10 @@ import util/config
 import handlers/payload_handler
 import util/logger
 
-var cfg = config.get_config()
-let log = logger.get_logger()
 let server = newAsyncHttpServer()
+
+let cfg = get_config()
+let log = get_logger()
 
 proc core_handler(req: Request) {.async, gcsafe.} =
   let `method` = req.req_method

@@ -29,10 +29,9 @@ proc load_config*(file_name: string): RcdConfig =
   stream.close()
   result = config
 
-var conf: Option[RcdConfig] = none(RcdConfig)
+var cfg {.global, threadvar.}: Option[RcdConfig]
 
-proc get_config*(): RcdConfig =
-  if conf.isSome: return conf.get()
-  let new_conf = load_config(config_file)
-  conf = some(new_conf)
-  return conf.get()
+proc get_config*(): RcdConfig = 
+  if cfg.isSome(): return cfg.get()
+  cfg = some(load_config(config_file))
+  return cfg.get()
