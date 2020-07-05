@@ -5,6 +5,8 @@ import unittest
 import httpclient
 import json
 import strformat
+import nimcrypto
+import strutils
 import util/config
 import handlers/payload_handler
 
@@ -24,7 +26,7 @@ proc start_testserver(): Future[void] =
     if `method` == HttpPost and 
       path == cfg.service.path and 
       contentType == "application/json":
-      await handle_gh_payload(req)
+      discard await handle_gh_payload(req)
     else:
       await req.respond(Http404, "Oops!")
   return server.serve(Port(testserver_port), test_handler)
@@ -75,3 +77,58 @@ suite "payload_handler.handle_gh_payload":
         break
     # assert
     check(response.read().status == $Http403)
+
+  test "valid release request with correct signature, returns Http200":
+    # start server
+    discard start_testserver()
+
+    # expected payload
+    let bodyJson = %* {
+      "action": "published",
+      "repository": {
+        "id": 1,
+        "name": "bla",
+        "private": true,
+        "full_name": "bla"
+      },
+      "sender": {
+        "id": 1,
+        "login": "name"
+      },
+      "release": {
+        "tag_name": "0.1",
+        "url": "http://localhost/",
+        "id": 1,
+        "target_commitish": "default",
+        "draft": false,
+        "prerelease": false,
+        "created_at": "never",
+        "published_at": "never"
+      }
+    }
+
+    # expected signature
+    let body = $bodyJson
+    let digest = $sha1.hmac("my-webhook-secret", body)
+    let sig = fmt"sha1={digest}"
+
+    # make reqs
+    let headers = newHttpHeaders({
+      "Content-Type": "application/json",
+      "X-GitHub-Event": "release",
+      "X-GitHub-Delivery": "nya",
+      "X-Hub-Signature": sig.toLowerAscii()
+    })
+    let client = newAsyncHttpClient(headers=headers)
+    let url = fmt"http://{testserver_domain}:{testserver_port}/"
+    let response = client.request(
+      url = url,
+      httpMethod = HttpPost,
+      body = body)
+    # wait until reqs performed
+    while true:
+      poll(timeout = 5000)
+      if response.finished:
+        break
+    # assert
+    check(response.read().status == $Http200)
