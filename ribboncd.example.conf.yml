@@ -3,26 +3,25 @@
 # cp ribboncd.example.conf.yml ribboncd.conf.yml
 
 service:
-  # expect github webhook to post to server:port/path
+  # expect github webhook events to be posted at server:port/path
   path: /
   port: 8000
   # write log files of all activity (ribboncd.log)
   log: true
 
 github:
-  # used to validate against incoming requests to proove source is github
-  # this needs to be setup in your github webhooks configuration
+  # used to validate against incoming requests to prove source is github
+  # this needs to be setup in github's webhook configuration ui
   # prefix secret value with $ to evaluate from an environment variable
   webhook_secret: my-webhook-secret
 
 deployments:
-  # each deployment target requires:
-  #   target: name of the github repository being released
-  #   cd: directory to run the deployment from
-  #   shell_commands: deployment actions
   -
-    target: test-app-1
+    # full name of github repository
+    target: user/test-app-1
+    # where to invoke commands on release
     cd: /usr/bin/test-apps/1
+    # list of shell commands to execute in order
     shell_commands: |
       echo installing test-app-1
       pkill test-app-1
@@ -30,8 +29,11 @@ deployments:
       ./test-app-1
       echo done
   -
-    target: test-app-2
+    # full name of additional github repository
+    target: org/test-app-2
+    # where to invoke commands for this target
     cd: /usr/bin/test-apps/2
+    # list of shell commands
     shell_commands: |
       echo installing test-app-2
       pkill test-app-2

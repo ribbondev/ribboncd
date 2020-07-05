@@ -20,14 +20,14 @@ suite "config.load_config":
     check(len(cfg.deployments) == 2)
 
     # deployment 1
-    check(cfg.deployments[0].target == "test-app-1")
+    check(cfg.deployments[0].target == "user/test-app-1")
     check(cfg.deployments[0].cd == "/usr/bin/test-apps/1")
     let deployment_commands1 = cfg.deployments[0].shell_commands.splitLines()
     check(deployment_commands1[0] == "echo installing test-app-1")
     check(deployment_commands1[1] == "pkill test-app-1")
 
     # deployment 2
-    check(cfg.deployments[1].target == "test-app-2")
+    check(cfg.deployments[1].target == "org/test-app-2")
     check(cfg.deployments[1].cd == "/usr/bin/test-apps/2")
     let deployment_commands2 = cfg.deployments[1].shell_commands.splitLines()
     check(deployment_commands2[0] == "echo installing test-app-2")
