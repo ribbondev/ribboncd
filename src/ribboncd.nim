@@ -21,7 +21,7 @@ proc core_handler(req: Request) {.async, gcsafe.} =
   if `method` == HttpPost and 
     path == cfg.service.path and 
     contentType == "application/json":
-    await handle_gh_payload(req)
+    discard await handle_gh_payload(req)
   else:
     log.write(fmt"Invalid request at: {req.url.path}")
     await req.respond(Http404, "Oops! Something went wrong!")
