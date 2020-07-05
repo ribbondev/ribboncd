@@ -1,7 +1,7 @@
 ## :ribbon: / ribbon.cd
 An easy-to-use, minimalist continuous deployment server for github webhooks. `linux` `windows` `nim` `github`
 
-*Also known as, a lazy way to remote git pull when you click a release button* :)
+(*also known as a lazy way to remote git pull when you click a release button*)
 ## Features
 - Listen for github release webhook payloads
 - Authenticate github payloads by their secret token
