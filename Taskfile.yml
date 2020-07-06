@@ -27,14 +27,10 @@ tasks:
     cmds:
       - nim c -d:release --opt:size --passL:-s -o:./ribboncd{{exeExt}} src/ribboncd.nim
 
-  # linux x64 only - requires tar/gzip, zip, + mingw-w64-gcc for cross compilation
   bundle:
     cmds:
-      # build linux x64 binary natively
       - nim c -d:release --cpu:amd64 --opt:size --passL:-s -o:./ribboncd src/ribboncd.nim
-      # cross compile for windows
       - nim c -d:mingw -d:release --cpu:amd64 --opt:size --passL:-s -o:./ribboncd.exe src/ribboncd.nim
-      # tar + zip binaries with included example config
       -  tar -cvzf ribboncd.linux64.tar.gz ribboncd ribboncd.example.conf.yml 
       - zip ribboncd.win64.zip ribboncd.exe ribboncd.example.conf.yml
 
