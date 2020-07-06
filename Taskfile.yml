@@ -31,7 +31,7 @@ tasks:
     cmds:
       - nim c -d:release --cpu:amd64 --opt:size --passL:-s -o:./ribboncd src/ribboncd.nim
       - nim c -d:mingw -d:release --cpu:amd64 --opt:size --passL:-s -o:./ribboncd.exe src/ribboncd.nim
-      -  tar -cvzf ribboncd.linux64.tar.gz ribboncd ribboncd.example.conf.yml 
+      - tar -cvzf ribboncd.linux64.tar.gz ribboncd ribboncd.example.conf.yml 
       - zip ribboncd.win64.zip ribboncd.exe ribboncd.example.conf.yml
 
   clean:
