@@ -9,3 +9,6 @@ tests/*
 !tests/*.nim
 ribboncd.conf.yml
 ribboncd.log
+*.zip
+*.tar.gz
+
