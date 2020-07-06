@@ -25,8 +25,7 @@ tasks:
 
   release:
     cmds:
-      - nimble build
-    silent: true
+      - nim c -d:release --opt:size --passL:-s -o:./ribboncd{{exeExt}} src/ribboncd.nim
 
   clean:
     cmds:
